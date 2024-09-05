@@ -32,8 +32,8 @@ func main() {
 	}
 
 	// parsing to integers
-	regularRrate, _ := strconv.Atoi(parts[0])
-	nightRrate, _ := strconv.Atoi(parts[1])
+	regularRate, _ := strconv.Atoi(parts[0])
+	nightRate, _ := strconv.Atoi(parts[1])
 	midNightRate, _ := strconv.Atoi(parts[2])
 	days, _ := strconv.Atoi(parts[3])
 
@@ -50,7 +50,7 @@ func main() {
 		startTime, _ := strconv.Atoi(parts[4+i*2])
 		endTime, _ := strconv.Atoi(parts[5+i*2])
 
-		totalAmount += calculateDayAmount(startTime, endTime, regularRrate, nightRrate, midNightRate)
+		totalAmount += calculateDayAmount(startTime, endTime, regularRate, nightRate, midNightRate)
 	}
 }
 func checkPairQuantity(n int, parts []string) bool {
