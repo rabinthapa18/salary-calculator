@@ -29,11 +29,23 @@ func main() {
 	// splitting the input into an array of strings
 	parts := strings.Fields(input)
 
+	// checking if there are enough required elements
+	if len(parts) < 4 {
+		fmt.Println("Error: incomplete required elements")
+		return
+	}
+
 	// parsing to integers
 	regularRrate, _ := strconv.Atoi(parts[0])
 	nightRrate, _ := strconv.Atoi(parts[1])
 	midNightRate, _ := strconv.Atoi(parts[2])
 	days, _ := strconv.Atoi(parts[3])
+
+	// checking if the number of pairs of in time and out time is correct
+	if !checkPairQuantity(days, parts) {
+		fmt.Printf("Error: expected %d pairs of in time and out time\n", days)
+		return
+	}
 
 	// for debugging
 	fmt.Printf("Regular Rate: %d\nNight Rate: %d\nMidnight Rate: %d\nDays: %d\n", regularRrate, nightRrate, midNightRate, days)
@@ -46,6 +58,10 @@ func main() {
 		// for debugging
 		fmt.Printf("start time: %d\nend time: %d\n", startTime, endTime)
 	}
+}
+
+func checkPairQuantity(n int, parts []string) bool {
+	return len(parts) == 4+n*2
 }
 
 func calculateAmount(rate int, timeStamps [][]int) {}
