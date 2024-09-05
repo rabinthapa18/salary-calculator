@@ -1,7 +1,3 @@
-// TODO:
-// 1. remove debug print statements
-// 2. implement calculateAmount function
-
 package main
 
 import (
@@ -15,7 +11,7 @@ import (
 const (
 	REGULAR_START_TIME  = 9
 	NIGHT_START_TIME    = 17
-	MIDNIGHT_START_TIME = 20
+	MIDNIGHT_START_TIME = 22
 )
 
 func main() {
@@ -47,21 +43,33 @@ func main() {
 		return
 	}
 
-	// for debugging
-	fmt.Printf("Regular Rate: %d\nNight Rate: %d\nMidnight Rate: %d\nDays: %d\n", regularRrate, nightRrate, midNightRate, days)
+	totalAmount := 0
 
 	// parsing the intime and outtime pairs
 	for i := 0; i < days; i++ {
 		startTime, _ := strconv.Atoi(parts[4+i*2])
 		endTime, _ := strconv.Atoi(parts[5+i*2])
 
-		// for debugging
-		fmt.Printf("start time: %d\nend time: %d\n", startTime, endTime)
+		totalAmount += calculateDayAmount(startTime, endTime, regularRrate, nightRrate, midNightRate)
 	}
 }
-
 func checkPairQuantity(n int, parts []string) bool {
 	return len(parts) == 4+n*2
 }
 
-func calculateAmount(rate int, timeStamps [][]int) {}
+func calculateDayAmount(startTime, endTime, regularRate, nightRate, midNightRate int) int {
+	dailyAmount := 0
+	for hour := startTime; hour < endTime; hour++ {
+		if hour >= 0 && hour < REGULAR_START_TIME || hour >= MIDNIGHT_START_TIME {
+			// midnight rate
+			dailyAmount += midNightRate
+		} else if hour >= REGULAR_START_TIME && hour < NIGHT_START_TIME {
+			// regular rate
+			dailyAmount += regularRate
+		} else if hour >= NIGHT_START_TIME && hour < MIDNIGHT_START_TIME {
+			// night rate
+			dailyAmount += nightRate
+		}
+	}
+	return dailyAmount
+}
