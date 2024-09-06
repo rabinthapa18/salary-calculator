@@ -13,7 +13,7 @@ func ProcessInputAPI(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 		return
 	}
-	var requestBody struct {
+	var requestBody []struct {
 		Input string `json:"input"`
 	}
 
@@ -23,15 +23,27 @@ func ProcessInputAPI(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// processing the input
-	result, err := pkg.ProcessInput(requestBody.Input)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+	// checking if the input is empty
+	if len(requestBody) == 0 {
+		http.Error(w, "Empty input", http.StatusBadRequest)
 		return
 	}
 
+	// results of all of the inputs
+	var results []int
+
+	// processing all of the inputs and storing the results
+	for _, input := range requestBody {
+		result, err := pkg.ProcessInput(input.Input)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
+		}
+		results = append(results, result)
+	}
+
 	response := map[string]interface{}{
-		"result": result,
+		"results": results,
 	}
 
 	json.NewEncoder(w).Encode(response)
