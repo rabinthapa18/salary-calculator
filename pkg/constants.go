@@ -1,0 +1,7 @@
+package pkg
+
+const (
+	REGULAR_START_TIME  = 9
+	NIGHT_START_TIME    = 17
+	MIDNIGHT_START_TIME = 22
+)
