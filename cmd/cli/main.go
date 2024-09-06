@@ -1,3 +1,5 @@
+// this is the main entry point of the application for CLI
+
 package main
 
 import (
