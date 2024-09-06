@@ -21,12 +21,10 @@ func ProcessInput(input string) (int, error) {
 	midNightRate := ParseInt(parts[2])
 	days := ParseInt(parts[3])
 
-	// checking if the number of pairs of in time and out time is correct
-	if !CheckPairQuantity(days, parts) {
-		return 0, fmt.Errorf("expected %d pairs of in time and out time", days)
-	}
-
 	// calculating the total amount
-	totalAmount := GetTotalAmount(regularRate, nightRate, midNightRate, days, parts[4:])
+	totalAmount, err := GetTotalAmount(regularRate, nightRate, midNightRate, days, parts[4:])
+	if err != nil {
+		return 0, err
+	}
 	return totalAmount, nil
 }

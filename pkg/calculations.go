@@ -1,8 +1,13 @@
 package pkg
 
-import ()
+import "fmt"
 
-func GetTotalAmount(regularRate, nightRate, midNightRate, days int, parts []string) int {
+func GetTotalAmount(regularRate, nightRate, midNightRate, days int, parts []string) (int, error) {
+	// checking if the number of pairs of in time and out time is correct
+	if !CheckPairQuantity(days, parts) {
+		return 0, fmt.Errorf("expected %d pairs of in time and out time", days)
+	}
+
 	totalAmount := 0
 
 	// parsing the intime and outtime pairs
@@ -13,7 +18,7 @@ func GetTotalAmount(regularRate, nightRate, midNightRate, days int, parts []stri
 		totalAmount += calculateDayAmount(startTime, endTime, regularRate, nightRate, midNightRate)
 	}
 
-	return totalAmount
+	return totalAmount, nil
 }
 
 func calculateDayAmount(startTime, endTime, regularRate, nightRate, midNightRate int) int {
