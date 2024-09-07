@@ -25,6 +25,8 @@ To start the API server, run following command from root directory:
 go run cmd/api/main.go
 ```
 
+> The API server will start on port 8080. You can also access the static website at `http://localhost:8080`.
+
 ### Running the CLI Application
 
 To start the CLI application,, run following command from root directory:
