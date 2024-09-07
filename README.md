@@ -32,7 +32,13 @@ go run cmd/api/main.go
 To start the CLI application,, run following command from root directory:
 
 ```
-go run cmd/cli/main.go
+go run cmd/cli/main.go <input string>
+```
+
+> Replace `<input string>` with the input data. For example:
+
+```
+go run cmd/cli/main.go 1000 1300 1500 4 0 9 9 17 17 22 22 23
 ```
 
 ### Running the Test Cases
