@@ -3,17 +3,17 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
 	"os"
 	"salary-calculator/pkg"
+	"strings"
 )
 
 func main() {
-	reader := bufio.NewReader(os.Stdin)
-	fmt.Println("Enter input: ")
+	// getting the input from the command line arguments
+	argInput := os.Args[1:]
+	input := strings.Join(argInput, " ")
 
-	input, _ := reader.ReadString('\n')
 	result, err := pkg.ProcessInput(input)
 
 	if err != nil {
